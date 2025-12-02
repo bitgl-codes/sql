@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS Practical: Complete SQL Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background-color: #4b5563; /* gray-600 */
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+        .relative:hover .copy-btn { opacity: 1; }
+        .copy-btn:active { background-color: #2563eb; } /* blue-600 */
+        
+        /* Custom scrollbar for code blocks */
+        pre::-webkit-scrollbar { height: 8px; }
+        pre::-webkit-scrollbar-track { background: #1f2937; }
+        pre::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 bg-white shadow-md border-b border-gray-200">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="text-xl font-bold text-blue-700">CS SQL Practical</div>
+                <div class="flex space-x-4">
+                    <a href="#lab-manual" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition">Lab Manual</a>
+                    <a href="#question-paper" class="px-3 py-2 rounded-md text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 shadow transition">Question Paper 2025</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-6xl mx-auto p-4 md:p-8 space-y-12">
+
+        <!-- ========================================== -->
+        <!-- SECTION 1: LAB MANUAL -->
+        <!-- ========================================== -->
+        <section id="lab-manual" class="scroll-mt-20">
+            <div class="bg-white shadow-lg rounded-xl overflow-hidden border border-gray-200">
+                <div class="bg-gradient-to-r from-blue-700 to-blue-500 text-white p-6">
+                    <h2 class="text-2xl font-bold">Part 1: Lab Manual Solutions</h2>
+                    <p class="text-blue-100 mt-1">Standard problems from the official lab manual (3.1 - 3.5)</p>
+                </div>
+
+                <div class="p-6 space-y-10">
+                    <!-- 3.1 Student Table -->
+                    <div class="border-l-4 border-blue-500 pl-4">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">3.1 Student Table</h3>
+                        <div class="space-y-4">
+                            <!-- Create & Insert -->
+                            <div class="bg-gray-50 p-4 rounded border">
+                                <p class="text-sm font-semibold text-gray-500 mb-2">SETUP QUERIES</p>
+                                <div class="relative bg-gray-900 text-green-400 p-4 rounded-md overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+<pre><code>CREATE TABLE student (
+    roll_number INT NOT NULL PRIMARY KEY,
+    stud_name VARCHAR(25),
+    batch VARCHAR(25),
+    mark1 INT, mark2 INT, mark3 INT, total INT
+);
+
+INSERT INTO student VALUES 
+(1, 'Alan Turing', 'Science', 80, 70, 55, NULL),
+(2, 'Ada Lovelace', 'Science', 30, 40, 15, NULL),
+(3, 'Adam Smith', 'Commerce', 70, 60, 40, NULL),
+(4, 'Amartya Sen', 'Commerce', 40, 80, 50, NULL),
+(5, 'Ibn Rushd', 'Science', 90, 94, 35, NULL),
+(6, 'Irfan Habeeb', 'Humanities', 80, 76, 69, NULL),
+(7, 'Friedman', 'Commerce', 60, 60, 50, NULL),
+(8, 'Robinson', 'Commerce', 50, 70, 50, NULL);</code></pre>
+                                </div>
+                            </div>
+                            <!-- Answers -->
+                            <div>
+                                <p class="font-semibold text-gray-800">1. Update Total column:</p>
+                                <div class="relative bg-gray-800 text-yellow-300 p-3 rounded mt-1 overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+                                    <code>UPDATE student SET total = mark1 + mark2 + mark3;</code>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">2. List students in Commerce batch:</p>
+                                <div class="relative bg-gray-800 text-yellow-300 p-3 rounded mt-1 overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+                                    <code>SELECT * FROM student WHERE batch = 'Commerce';</code>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">3. Failed students (Total < 90):</p>
+                                <div class="relative bg-gray-800 text-yellow-300 p-3 rounded mt-1 overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+                                    <code>SELECT stud_name, total FROM student WHERE total < 90;</code>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">4. Order by name and batch:</p>
+                                <div class="relative bg-gray-800 text-yellow-300 p-3 rounded mt-1 overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+                                    <code>SELECT stud_name, batch FROM student ORDER BY batch, stud_name;</code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- 3.2 Employee Table -->
+                    <div class="border-l-4 border-blue-500 pl-4">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">3.2 Employee Table</h3>
+                        <div class="space-y-4">
+                            <div class="bg-gray-50 p-4 rounded border">
+                                <p class="text-sm font-semibold text-gray-500 mb-2">SETUP QUERIES</p>
+                                <div class="relative bg-gray-900 text-green-400 p-4 rounded-md overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+<pre><code>CREATE TABLE employee (
+    Emp_code INT PRIMARY KEY,
+    Emp_name VARCHAR(20),
+    Designation VARCHAR(25),
+    Department VARCHAR(25),
+    Basic DEC(10,2), DA DEC(10,2), Gross_pay DEC(10,2)
+);
+
+INSERT INTO employee VALUES 
+(100, 'Arjun', 'Trainees', 'Sales', 16000.00, NULL, NULL),
+(101, 'Maya', 'Trainees', 'Purchase', 9000.00, NULL, NULL),
+(102, 'Rahul', 'Trainees', 'Purchase', 10000.00, NULL, NULL),
+(103, 'Ibrahim', 'Supervisors', 'Purchase', 18000.00, NULL, NULL),
+(104, 'Abdulla', 'Supervisors', 'Sales', 21000.00, NULL, NULL),
+(105, 'Vivek', 'Managers', 'HR', 32000.00, NULL, NULL),
+(106, 'George', 'Managers', 'Sales', 45000.00, NULL, NULL),
+(107, 'Meera', 'Trainees', 'HR', 11000.00, NULL, NULL),
+(108, 'Tiji', 'Trainees', 'IT', 12000.00, NULL, NULL);</code></pre>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">1. Update DA (75% of Basic):</p>
+                                <div class="relative bg-gray-800 text-yellow-300 p-3 rounded mt-1 overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+                                    <code>UPDATE employee SET DA = Basic * 75/100;</code>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">2. Select Purchase, Sales, HR:</p>
+                                <div class="relative bg-gray-800 text-yellow-300 p-3 rounded mt-1 overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+                                    <code>SELECT * FROM employee WHERE Department IN ('Purchase', 'Sales', 'HR');</code>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">3. Update Gross Pay:</p>
+                                <div class="relative bg-gray-800 text-yellow-300 p-3 rounded mt-1 overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+                                    <code>UPDATE employee SET Gross_pay = Basic + DA;</code>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">4. Gross pay < 20000:</p>
+                                <div class="relative bg-gray-800 text-yellow-300 p-3 rounded mt-1 overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+                                    <code>SELECT * FROM employee WHERE Gross_pay < 20000;</code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- 3.3 Stock Table -->
+                    <div class="border-l-4 border-blue-500 pl-4">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">3.3 Stock Table</h3>
+                        <div class="space-y-4">
+                            <div class="bg-gray-50 p-4 rounded border">
+                                <p class="text-sm font-semibold text-gray-500 mb-2">SETUP QUERIES</p>
+                                <div class="relative bg-gray-900 text-green-400 p-4 rounded-md overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+<pre><code>CREATE TABLE stock (
+    Item_code INTEGER PRIMARY KEY,
+    Item_name VARCHAR(20),
+    Manufacturer_Code VARCHAR(5),
+    Qty INT, Unit_Price DECIMAL(10,2)
+);
+
+INSERT INTO stock VALUES 
+('1001', 'Smart Phone', 'Samsung', '23', '36000'),
+('1002', 'Smart Watch', 'Samsung', '16', '19000'),
+('1003', 'Washing Machine', 'LG', '21', '36000'),
+('1004', 'Juicer', 'Butterfly', '5', '7000'),
+('1005', 'Toaster', 'Philips', '0', '3000'),
+('1006', 'Air Purifier', 'Philips', '3', '9500'),
+('1007', 'Coffee Maker', 'Havels', '0', '16000');</code></pre>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">1. Stock Zero:</p>
+                                <div class="relative bg-gray-800 text-yellow-300 p-3 rounded mt-1 overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+                                    <code>SELECT * FROM stock WHERE Qty = 0;</code>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">2. Count by Manufacturer:</p>
+                                <div class="relative bg-gray-800 text-yellow-300 p-3 rounded mt-1 overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+                                    <code>SELECT Manufacturer_Code, COUNT(Item_code) AS No_Products FROM stock GROUP BY Manufacturer_Code;</code>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">3. Max Price and Min Qty:</p>
+                                <div class="relative bg-gray-800 text-yellow-300 p-3 rounded mt-1 overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+                                    <code>SELECT MAX(Unit_price) AS Highest_price, MIN(Qty) AS Min_Qty FROM stock;</code>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">4. Increase Price 10%:</p>
+                                <div class="relative bg-gray-800 text-yellow-300 p-3 rounded mt-1 overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+                                    <code>UPDATE stock SET Unit_Price = Unit_Price + Unit_Price * 0.1;</code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- 3.4 Bank Table -->
+                    <div class="border-l-4 border-blue-500 pl-4">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">3.4 Bank Table</h3>
+                        <div class="space-y-4">
+                            <div class="bg-gray-50 p-4 rounded border">
+                                <p class="text-sm font-semibold text-gray-500 mb-2">SETUP QUERIES</p>
+                                <div class="relative bg-gray-900 text-green-400 p-4 rounded-md overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+<pre><code>CREATE TABLE bank (
+    Acc_No INT NOT NULL PRIMARY KEY,
+    Acc_Name VARCHAR(20),
+    Branch_Name VARCHAR(25),
+    Acc_Type VARCHAR(10), Amount DECIMAL(10,2)
+);
+
+INSERT INTO bank VALUES
+('150001', 'Peter', 'Alappuzha', 'Current', '65000'),
+('150002', 'Hamid', 'Trivandrum', 'Savings', '12000'),
+('150003', 'Anoop', 'Malappuram', 'Savings', '4000'),
+('150004', 'Jyothi', 'Trissur', 'Current', '75000'),
+('150005', 'Azim', 'Ernakulam', 'Current', '58600'),
+('150006', 'Ayra', 'Kozhikkod', 'Savings', '7500'),
+('150007', 'Amosh', 'Trissur', 'Savings', '3500'),
+('150008', 'Sidharth', 'Kodungallore', 'Savings', '69200');</code></pre>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">1. Kodungallur Branch details:</p>
+                                <div class="relative bg-gray-800 text-yellow-300 p-3 rounded mt-1 overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+                                    <code>SELECT * FROM bank WHERE Branch_Name = 'Kodungallore';</code>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">2. Rename Trivandrum:</p>
+                                <div class="relative bg-gray-800 text-yellow-300 p-3 rounded mt-1 overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+                                    <code>UPDATE bank SET Branch_Name = 'Thiruvananthapuram' WHERE Branch_Name = 'Trivandrum';</code>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">3. Specific Branches:</p>
+                                <div class="relative bg-gray-800 text-yellow-300 p-3 rounded mt-1 overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+                                    <code>SELECT * FROM bank WHERE Branch_Name IN ('Thiruvananthapuram', 'Kozhikkod', 'Ernakulam');</code>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">4. Trissur Bal < 5000:</p>
+                                <div class="relative bg-gray-800 text-yellow-300 p-3 rounded mt-1 overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+                                    <code>SELECT * FROM bank WHERE Branch_Name = 'Trissur' AND Amount < 5000;</code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- 3.5 Book Table -->
+                    <div class="border-l-4 border-blue-500 pl-4">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">3.5 Book Table</h3>
+                        <div class="space-y-4">
+                            <div class="bg-gray-50 p-4 rounded border">
+                                <p class="text-sm font-semibold text-gray-500 mb-2">SETUP QUERIES</p>
+                                <div class="relative bg-gray-900 text-green-400 p-4 rounded-md overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+<pre><code>CREATE TABLE book (
+    Book_ID INT NOT NULL PRIMARY KEY,
+    Book_Name VARCHAR(20), Author_Name VARCHAR(25),
+    Pub_Name VARCHAR(25), Price DECIMAL(10,2)
+);
+
+INSERT INTO book VALUES 
+('1200', 'The Kite Runner', 'Khaled Husseini', 'River Head', '450'),
+('1201', 'Wings of Fire', 'Dr. APJ Abdulkalam', 'Universities Press', '250'),
+('1202', 'The White Tiger', 'Aravind Adiga', 'Atlantic', '300'),
+('1203', 'Manju', 'M T Vasudevan Nair', 'DC Books', '425'),
+('1204', 'Arachar', 'K R Meera', 'DC Books', '225'),
+('1205', 'When Breath Becomes Air', 'Paul Kalanidhi', 'Random House', '525'),
+('1206', 'Forty Rules of Love', 'Elif Shefak', 'Penguine', '700'),
+('1207', 'Art of Computer Programming', 'Peter', 'SCERT', '125'),
+('1208', 'Madhuram Malayalam', 'Madhu Vaduthala', 'SCERT', '75'),
+('1209', 'Python Programming', 'Michael Dawson', 'Pearson', '3300');</code></pre>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">1. Price >= 100:</p>
+                                <div class="relative bg-gray-800 text-yellow-300 p-3 rounded mt-1 overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+                                    <code>SELECT * FROM book WHERE Price >= 100;</code>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">2. SCERT Books:</p>
+                                <div class="relative bg-gray-800 text-yellow-300 p-3 rounded mt-1 overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+                                    <code>SELECT * FROM book WHERE Pub_Name = 'SCERT';</code>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">3. Increase SCERT Price 10%:</p>
+                                <div class="relative bg-gray-800 text-yellow-300 p-3 rounded mt-1 overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+                                    <code>UPDATE book SET Price = Price + Price * 0.1 WHERE Pub_Name = 'SCERT';</code>
+                                </div>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">4. Title ends with 'Programming':</p>
+                                <div class="relative bg-gray-800 text-yellow-300 p-3 rounded mt-1 overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+                                    <code>SELECT * FROM BOOK WHERE Book_Name LIKE '%Programming';</code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- SECTION 2: QUESTION PAPER 2025 -->
+        <!-- ========================================== -->
+        <section id="question-paper" class="scroll-mt-20">
+            <div class="bg-white shadow-lg rounded-xl overflow-hidden border border-gray-200">
+                <div class="bg-gradient-to-r from-indigo-700 to-indigo-500 text-white p-6">
+                    <h2 class="text-2xl font-bold">Part 2: Question Paper 2025 Solutions</h2>
+                    <p class="text-indigo-100 mt-1">Exact solutions for the February 2025 Practical Exam (Q24 - Q28)</p>
+                </div>
+
+                <div class="p-6 space-y-10">
+                    
+                    <!-- Q24 Student -->
+                    <div class="border-l-4 border-indigo-500 pl-4">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Q24. Student Table (QP)</h3>
+                        <div class="space-y-4">
+                            <div class="bg-gray-50 p-4 rounded border">
+                                <p class="text-sm font-semibold text-gray-500 mb-2">SETUP & QUERIES</p>
+                                <div class="relative bg-gray-900 text-green-400 p-4 rounded-md overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+<pre><code>/* 1. Create Table */
+CREATE TABLE Student (
+    Roll_Number INTEGER PRIMARY KEY,
+    Name VARCHAR(25), Batch VARCHAR(15),
+    Mark1 INTEGER, Mark2 INTEGER, Mark3 INTEGER, Total INTEGER
+);
+
+/* 2. Insert Data */
+INSERT INTO Student (Roll_Number, Name, Batch, Mark1, Mark2, Mark3) VALUES 
+(1, 'Anand', 'Commerce', 80, 70, 60), (2, 'Bina', 'Science', 90, 85, 95),
+(3, 'Cyril', 'Commerce', 40, 30, 35), (4, 'Divya', 'Humanities', 88, 76, 82),
+(5, 'Ejas', 'Commerce', 60, 65, 70);
+
+/* a. Update Total */
+UPDATE Student SET Total = Mark1 + Mark2 + Mark3;
+
+/* b. List students in Commerce batch */
+SELECT * FROM Student WHERE Batch = 'Commerce';
+
+/* c. Failed students (Total < 90) */
+SELECT Name, Total FROM Student WHERE Total < 90;
+
+/* d. Alphabetical order of Name and Batch */
+SELECT * FROM Student ORDER BY Batch, Name;</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- Q25 Employee -->
+                    <div class="border-l-4 border-indigo-500 pl-4">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Q25. Employee Table (QP)</h3>
+                        <div class="space-y-4">
+                            <div class="bg-gray-50 p-4 rounded border">
+                                <p class="text-sm font-semibold text-gray-500 mb-2">SETUP & QUERIES</p>
+                                <div class="relative bg-gray-900 text-green-400 p-4 rounded-md overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+<pre><code>/* 1. Create Table */
+CREATE TABLE Employee (
+    Emp_code INTEGER PRIMARY KEY,
+    Emp_name VARCHAR(20), Designation VARCHAR(25), Department VARCHAR(25),
+    Basic_Pay DECIMAL(10,2), DA DECIMAL(10,2), Gross_pay DECIMAL(10,2)
+);
+
+/* 2. Insert Data */
+INSERT INTO Employee (Emp_code, Emp_name, Designation, Department, Basic_Pay) VALUES 
+(101, 'Raju', 'Clerk', 'Sales', 15000), (102, 'Sita', 'Manager', 'HR', 45000),
+(103, 'Gopal', 'Peon', 'Purchase', 8000), (104, 'Latha', 'Clerk', 'Sales', 16000),
+(105, 'Mohan', 'Officer', 'IT', 25000);
+
+/* a. Update DA with 28% of Basic Pay */
+UPDATE Employee SET DA = Basic_Pay * 0.28;
+
+/* b. Update Gross_pay */
+UPDATE Employee SET Gross_pay = Basic_Pay + DA;
+
+/* c. Employees in Purchase, Sales and HR */
+SELECT * FROM Employee WHERE Department IN ('Purchase', 'Sales', 'HR');
+
+/* d. Employees with gross pay below 10000 */
+SELECT * FROM Employee WHERE Gross_pay < 10000;</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- Q26 Stock -->
+                    <div class="border-l-4 border-indigo-500 pl-4">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Q26. Stock Table (QP)</h3>
+                        <div class="space-y-4">
+                            <div class="bg-gray-50 p-4 rounded border">
+                                <p class="text-sm font-semibold text-gray-500 mb-2">SETUP & QUERIES</p>
+                                <div class="relative bg-gray-900 text-green-400 p-4 rounded-md overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+<pre><code>/* 1. Create Table */
+CREATE TABLE Stock (
+    Item_code INTEGER PRIMARY KEY,
+    Item_name VARCHAR(20), Manufacturer_Code VARCHAR(5),
+    Qty INTEGER, Unit_Price DECIMAL(10,2)
+);
+
+/* 2. Insert Data */
+INSERT INTO Stock VALUES 
+(1, 'Mouse', 'M01', 10, 500), (2, 'Keyboard', 'M01', 0, 800),
+(3, 'Monitor', 'M02', 5, 5000), (4, 'Printer', 'M02', 0, 12000),
+(5, 'Scanner', 'M03', 2, 4000);
+
+/* a. Item names with stock zero */
+SELECT Item_name FROM Stock WHERE Qty = 0;
+
+/* b. Number of items by same manufacturer */
+SELECT Manufacturer_Code, COUNT(*) FROM Stock GROUP BY Manufacturer_Code;
+
+/* c. Highest price and lowest quantity */
+SELECT MAX(Unit_Price), MIN(Qty) FROM Stock;
+
+/* d. Increase unit price by 10% */
+UPDATE Stock SET Unit_Price = Unit_Price + (Unit_Price * 0.10);</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- Q27 Book -->
+                    <div class="border-l-4 border-indigo-500 pl-4">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Q27. Book Table (QP)</h3>
+                        <div class="space-y-4">
+                            <div class="bg-gray-50 p-4 rounded border">
+                                <p class="text-sm font-semibold text-gray-500 mb-2">SETUP & QUERIES</p>
+                                <div class="relative bg-gray-900 text-green-400 p-4 rounded-md overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+<pre><code>/* 1. Create Table */
+CREATE TABLE Book (
+    Book_ID INTEGER PRIMARY KEY,
+    Book_Name VARCHAR(20), Author_Name VARCHAR(25),
+    Pub_Name VARCHAR(25), Price DECIMAL(10,2)
+);
+
+/* 2. Insert Data */
+INSERT INTO Book VALUES 
+(1, 'Fundamentals of C++', 'Author A', 'SCERT', 150),
+(2, 'Web Design', 'Author B', 'Pearson', 300),
+(3, 'Database Fundamentals', 'Author C', 'SCERT', 250),
+(4, 'Python Basics', 'Author D', 'OReilly', 400),
+(5, 'AI Fundamentals', 'Author E', 'SCERT', 180);
+
+/* a. Books with price 200 or more */
+SELECT * FROM Book WHERE Price >= 200;
+
+/* b. Name of books published by SCERT */
+SELECT Book_Name FROM Book WHERE Pub_Name = 'SCERT';
+
+/* c. Increase price by 10% for SCERT books */
+UPDATE Book SET Price = Price + (Price * 0.10) WHERE Pub_Name = 'SCERT';
+
+/* d. Books starting with "Fundamentals" */
+SELECT * FROM Book WHERE Book_Name LIKE 'Fundamentals%';</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- Q28 Bank -->
+                    <div class="border-l-4 border-indigo-500 pl-4">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">Q28. Bank Table (QP)</h3>
+                        <div class="space-y-4">
+                            <div class="bg-gray-50 p-4 rounded border">
+                                <p class="text-sm font-semibold text-gray-500 mb-2">SETUP & QUERIES</p>
+                                <div class="relative bg-gray-900 text-green-400 p-4 rounded-md overflow-x-auto text-sm">
+                                    <button onclick="copyToClipboard(this)" class="copy-btn">Copy</button>
+<pre><code>/* 1. Create Table */
+CREATE TABLE Bank (
+    Acc_No INTEGER PRIMARY KEY,
+    Acc_Name VARCHAR(20), Branch_Name VARCHAR(25),
+    Acc_Type VARCHAR(10), Amount DECIMAL(10,2)
+);
+
+/* 2. Insert Data */
+INSERT INTO Bank VALUES 
+(1001, 'User A', 'Thrissur', 'Savings', 4000),
+(1002, 'User B', 'Trivandrum', 'Current', 12000),
+(1003, 'User C', 'Palakkad', 'Savings', 6000),
+(1004, 'User D', 'Kollam', 'Savings', 8000),
+(1005, 'User E', 'Ernakulam', 'Savings', 5500);
+
+/* a. "Savings Account" in Thrissur branch */
+SELECT * FROM Bank WHERE Branch_Name = 'Thrissur' AND Acc_Type = 'Savings';
+
+/* b. Change "Trivandrum" to "Thiruvananthapuram" */
+UPDATE Bank SET Branch_Name = 'Thiruvananthapuram' WHERE Branch_Name = 'Trivandrum';
+
+/* c. Customers in Kollam, Ernakulam and Malppuram */
+SELECT * FROM Bank WHERE Branch_Name IN ('Kollam', 'Ernakulam', 'Malppuram');
+
+/* d. Palakkad branch having balance 5000 or more */
+SELECT * FROM Bank WHERE Branch_Name = 'Palakkad' AND Amount >= 5000;</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="bg-gray-800 text-gray-400 text-center p-6 text-sm">
+        <p>Prepared for Computer Science Practical Examination 2025</p>
+    </div>
+
+    <script>
+        function copyToClipboard(button) {
+            const codeBlock = button.nextElementSibling;
+            const code = codeBlock.textContent;
+            
+            // Create a textarea element to perform the copy
+            const textarea = document.createElement('textarea');
+            textarea.value = code;
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                document.execCommand('copy');
+                // Visual feedback
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.classList.add('bg-green-600');
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('bg-green-600');
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy text', err);
+            }
+            
+            document.body.removeChild(textarea);
+        }
+    </script>
+</body>
+</html>
